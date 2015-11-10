@@ -1,0 +1,22 @@
+{
+  "name": "vetleneso-com",
+  "version": "1.0.0",
+  "description": "Vetles home page",
+  "main": "index.js",
+  "scripts": {
+    "dev-start": "./node_modules/.bin/babel-node --stage=0 src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jørn Andre Tangen @gorillatron",
+  "license": "private",
+  "devDependencies": {
+    "babel": "^6.0.15",
+    "babel-cli": "^6.1.2"
+  },
+  "dependencies": {
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.4"
+  }
+}
