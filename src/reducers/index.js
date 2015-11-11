@@ -1,7 +1,7 @@
 
 import {combineReducers} from "redux"
 
-function state(state) {
+function state(state = {}) {
   return state
 }
 
