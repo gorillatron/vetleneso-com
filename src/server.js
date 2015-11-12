@@ -1,5 +1,8 @@
 
 import Koa from 'koa'
+import koaConvert from 'koa-convert'
+import staticCache from 'koa-static-cache'
+import path from 'path'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { createStore } from 'redux'
@@ -9,6 +12,10 @@ import AppContainer from './containers/App'
 
 
 const app = new Koa()
+
+app.use(koaConvert(staticCache(path.join(__dirname, '../resources'), {
+  maxAge: 10 * 24 * 60 * 60 // 10 days
+})))
 
 app.use(function (ctx, next) {
 
@@ -33,7 +40,7 @@ app.use(function (ctx, next) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="/js/app.js"></script>
       </body>
     </html>
     `
