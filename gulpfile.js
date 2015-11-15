@@ -36,6 +36,34 @@ gulp.task("build-client", (cb) => {
     })
 })
 
+gulp.task("build-server", (cb) => {
+  browserify({ debug: true })
+    .transform(babelify)
+    .require("./src/server.js", { entry: true })
+    .bundle()
+    .on("error", (err) => {
+      console.log("Error: " + err.message)
+      notify({
+        type: 'fail',
+        title: 'Gulp',
+        subtitle: 'Build fail',
+        message: err.message,
+        group: 'taskdoer'
+      })
+      cb() })
+    .pipe(fs.createWriteStream("./dist/server.js"))
+    .on("finish", () => {
+      notify({
+        type: 'pass',
+        title: 'Gulp',
+        subtitle: 'Build success',
+        message: "success",
+        group: 'taskdoer'
+      })
+      cb()
+    })
+})
+
 
 gulp.task('dev-mode', () => {
   gulp.watch('./src/**/*', ['build-client'])

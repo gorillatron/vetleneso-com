@@ -40,10 +40,24 @@ function render(renderProps) {
         <title>Vetle</title>
       </head>
       <body>
+
+        <style>
+          * {
+            padding: 0px;
+            margin: 0px;
+          }
+          html, body, #app {
+            height: 100%;
+            width: 100%;
+          }
+        </style>
+
         <div id="app">${html}</div>
+
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
+
         <script src="/js/client.js"></script>
       </body>
     </html>
