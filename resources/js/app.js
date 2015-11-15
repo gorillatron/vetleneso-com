@@ -1,3 +1,3 @@
-"use strict";
+'use strict';
 
-alert(2);
+console.log('client init');
