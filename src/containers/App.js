@@ -1,3 +1,4 @@
+
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import Radium from 'radium'
@@ -10,8 +11,8 @@ class App extends Component {
       <div style={{
         width: '100%',
         height: '100%',
-        background: 'url("/images/chickentown.jpg")',
-        'background-size': 'cover'
+        'backgroundImage': 'url("/images/chickentown.jpg")',
+        'backgroundSize': 'cover'
       }}>
         {this.props.children}
       </div>

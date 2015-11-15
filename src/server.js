@@ -8,7 +8,7 @@ import { renderToString } from 'react-dom/server'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducers from './reducers'
-import AppContainer from './containers/App'
+import Root from './containers/Root'
 import { match, RoutingContext } from 'react-router'
 import routes from './routes'
 
@@ -24,11 +24,14 @@ app.use(koaConvert(staticCache(path.join(__dirname, '../resources'), {
 function render(renderProps) {
 
   const store = createStore(reducers, {})
+  const props = { ...renderProps }
 
   const html = renderToString(
-    <Provider store={store}>
-      <RoutingContext {...renderProps} />
-    </Provider>
+    <Root radiumConfig={renderProps.radiumConfig}>
+      <Provider store={store}>
+        <RoutingContext {...props} />
+      </Provider>
+    </Root>
   )
 
   const initialState = store.getState()
@@ -59,6 +62,7 @@ function render(renderProps) {
         </script>
 
         <script src="/js/client.js"></script>
+
       </body>
     </html>
     `
@@ -66,12 +70,13 @@ function render(renderProps) {
 
 
 app.use(function(ctx, next) {
-  match({routes, location: ctx.request.url }, (error, redirectLocation, renderProps) => {
+  match({routes: routes(), location: ctx.request.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       ctx.throw(500, error.message)
     } else if (redirectLocation) {
       ctx.redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
+      renderProps.radiumConfig = { userAgent: ctx.req.headers['user-agent'] }
       ctx.body = render(renderProps)
     } else {
       ctx.throw(400)
