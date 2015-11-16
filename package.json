@@ -9,6 +9,9 @@
     "client-build": "node_modules/.bin/babel src/client.js -o resources/js/app.js -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "5.0.0"
+  },
   "author": "Jørn Andre Tangen @gorillatron",
   "license": "private",
   "devDependencies": {
