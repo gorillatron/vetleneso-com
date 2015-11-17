@@ -14,6 +14,7 @@ import routes from './routes'
 
 
 const app = new Koa()
+const port = process.env.PORT || 3000
 
 
 app.use(koaConvert(staticCache(path.join(__dirname, '../resources'), {
@@ -84,4 +85,4 @@ app.use(function(ctx, next) {
   })
 })
 
-app.listen(3000, () => console.log("server started"))
+app.listen(port, () => console.log("server started"))
