@@ -5,7 +5,7 @@ var sourcemaps = require("gulp-sourcemaps")
 var concat = require("gulp-concat")
 var babelify = require("babelify")
 var browserify = require("browserify")
-var notify = require('osx-notifier');
+var notify = require('osx-notifier')
 
 
 gulp.task("build-client", (cb) => {
