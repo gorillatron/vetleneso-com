@@ -11,7 +11,7 @@ class App extends Component {
       <div style={{
         width: '100%',
         height: '100%',
-        'backgroundImage': 'url("/images/chickentown.jpg")',
+        'backgroundImage': 'url("/images/chickentown_lr.jpg")',
         'backgroundSize': 'cover'
       }}>
         {this.props.children}
