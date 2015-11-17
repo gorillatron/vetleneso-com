@@ -70,7 +70,7 @@ function render(renderProps) {
 }
 
 
-app.use(koaConvert(function(ctx, next) {
+app.use(function(ctx, next) {
   match({routes: routes(), location: ctx.request.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       ctx.throw(500, error.message)
@@ -83,6 +83,6 @@ app.use(koaConvert(function(ctx, next) {
       ctx.throw(400)
     }
   })
-}))
+})
 
 app.listen(port, () => console.log("server started"))
