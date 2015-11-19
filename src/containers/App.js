@@ -7,7 +7,7 @@ const links = [
   {url: '/gallery', title:  'Gallery'},
   {url: '/clothes', title:  'Klær'},
   {url: '/about', title:  'About'},
-  {url: '/clothes', title:  'Contact'}
+  {url: '/contact', title:  'Contact'}
 ]
 
 var Header = Radium(class extends Component {
@@ -35,10 +35,14 @@ var Header = Radium(class extends Component {
             fontSize: '1.55em',
             listStyleType: 'none'
           }}>
-            {links.map((link) => (
+            {links.map((link, index) => (
               <li style={{ display: 'inline-block',
                            padding: '15px' }}>
-                <a style={{ color: 'rgb(60,60,60)',
+                <a key={'menu_link_' + index}
+                   style={{ color: 'rgb(60,60,60)',
+                            ':hover': {
+                              color: 'rgb(10,10,10)'
+                            },
                             fontFamily: 'Arial Black',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
