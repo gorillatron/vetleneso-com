@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 import reducers from './reducers'
 import Root from './containers/Root'
 import { match, RoutingContext } from 'react-router'
-import routes from './routes'
+import { createRoutes } from './routes'
 
 
 const app = new Koa()
@@ -42,14 +42,12 @@ function render(renderProps) {
     <html>
       <head>
         <title>Vetle</title>
+        <link rel="stylesheet" href="/css/skeleton/normalize.css" />
+        <link rel="stylesheet" href="/css/skeleton/skeleton.css" />
       </head>
       <body>
 
         <style>
-          * {
-            padding: 0px;
-            margin: 0px;
-          }
           html, body, #app {
             height: 100%;
             width: 100%;
@@ -70,8 +68,11 @@ function render(renderProps) {
 }
 
 
-app.use(function(ctx, next) {
-  match({routes: routes(), location: ctx.request.url }, (error, redirectLocation, renderProps) => {
+app.use(async function(ctx, next) {
+
+  const routes = await createRoutes()
+
+  match({routes: routes, location: ctx.request.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       ctx.throw(500, error.message)
     } else if (redirectLocation) {

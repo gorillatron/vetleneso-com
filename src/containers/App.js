@@ -3,6 +3,63 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import Radium from 'radium'
 
+const links = [
+  {url: '/gallery', title:  'Gallery'},
+  {url: '/clothes', title:  'Klær'},
+  {url: '/about', title:  'About'},
+  {url: '/clothes', title:  'Contact'}
+]
+
+var Header = Radium(class extends Component {
+
+  render() {
+    return (
+      <header>
+
+        <div id="logo-wrapper"
+             className="twelve column"
+             style={{
+               height: 300
+             }}>
+          <img src="/images/neso_logo@1x.png"
+               style={{
+                 display: 'block',
+                 height: '100%',
+                 margin: '0px auto'
+               }}/>
+        </div>
+
+        <nav>
+          <ul style={{
+            textAlign: 'center',
+            fontSize: '1.55em',
+            listStyleType: 'none'
+          }}>
+            {links.map((link) => (
+              <li style={{ display: 'inline-block',
+                           padding: '15px' }}>
+                <a style={{ color: 'rgb(60,60,60)',
+                            ':hover': {
+                              color: 'rgb(20,20,20)'
+                            },
+                            fontFamily: 'Arial Black',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase',
+                            textDecoration: 'none' }}
+                   href={link.url}>
+                  {link.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+      </header>
+    )
+  }
+
+})
+
 
 class App extends Component {
 
@@ -14,7 +71,23 @@ class App extends Component {
         'backgroundImage': 'url("/images/chickentown_lr.jpg")',
         'backgroundSize': 'cover'
       }}>
-        {this.props.children}
+
+        <div className="outer-wrapper container"
+             style={{
+               minHeight: '100%',
+               backgroundColor: "rgba(255,255,255, 0.97)"
+             }}>
+
+          <div className="row">
+            <Header/>
+          </div>
+
+          <div className="row" id="content">
+            {this.props.children}
+          </div>
+
+        </div>
+
       </div>
     )
   }

@@ -6,13 +6,12 @@ import AppContainer from './containers/App'
 import AboutComponent from './components/About'
 
 
-const routes = (config = {}) => {
-  return [
-    <Route path="/" component={AppContainer}>
-      <Route path="about" component={AboutComponent} />
-    </Route>
-  ]
+export function createRoutes(){
+  return new Promise((resolve) => {
+    resolve([
+      <Route path="/" component={AppContainer}>
+        <Route path="about" component={AboutComponent} />
+      </Route>
+    ])
+  })
 }
-
-
-export default routes
