@@ -75,6 +75,7 @@ class App extends Component {
 
         <div className="outer-wrapper container"
              style={{
+               padding: '20px',
                minHeight: '100%',
                backgroundColor: "rgba(255,255,255, 0.97)"
              }}>
@@ -83,7 +84,7 @@ class App extends Component {
             <Header/>
           </div>
 
-          <div className="row" id="content">
+          <div id="content">
             {this.props.children}
           </div>
 
