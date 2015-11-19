@@ -39,9 +39,6 @@ var Header = Radium(class extends Component {
               <li style={{ display: 'inline-block',
                            padding: '15px' }}>
                 <a style={{ color: 'rgb(60,60,60)',
-                            ':hover': {
-                              color: 'rgb(20,20,20)'
-                            },
                             fontFamily: 'Arial Black',
                             fontWeight: 'bold',
                             textTransform: 'uppercase',
