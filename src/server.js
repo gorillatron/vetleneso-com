@@ -44,6 +44,7 @@ function render(renderProps) {
         <title>Vetle</title>
         <link rel="stylesheet" href="/css/skeleton/normalize.css" />
         <link rel="stylesheet" href="/css/skeleton/skeleton.css" />
+        <link rel="stylesheet" href="/css/fonts.css" />
       </head>
       <body>
 
