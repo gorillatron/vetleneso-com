@@ -11,6 +11,7 @@ import reducers from './reducers'
 import Root from './containers/Root'
 import { match, RoutingContext } from 'react-router'
 import { createRoutes } from './routes'
+import fetchComponentData from './lib/fetchComponentData'
 
 
 const app = new Koa()
@@ -22,15 +23,16 @@ app.use(koaConvert(staticCache(path.join(__dirname, '../resources'), {
 })))
 
 
-function render(renderProps) {
+async function render(renderProps) {
 
   const store = createStore(reducers, {})
-  const props = { ...renderProps }
+
+  const data = await fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
 
   const html = renderToString(
     <Root radiumConfig={renderProps.radiumConfig}>
       <Provider store={store}>
-        <RoutingContext {...props} />
+        <RoutingContext {...renderProps} />
       </Provider>
     </Root>
   )
@@ -61,30 +63,46 @@ function render(renderProps) {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
 
-        <script src="/js/client.js"></script>
+        <!-- <script src="/js/client.js"></script> -!>
 
       </body>
     </html>
     `
 }
 
-
 app.use(async function(ctx, next) {
 
   const routes = await createRoutes()
 
-  match({routes: routes, location: ctx.request.url }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      ctx.throw(500, error.message)
-    } else if (redirectLocation) {
+  try {
+
+    const renderProps = await new Promise((resolve, reject) => {
+      match({routes: routes, location: ctx.request.url }, (error, redirectLocation, renderProps) => {
+        if (error) {
+          throw {...error, status: 500}
+        } else if (redirectLocation) {
+          throw {...error, redirectLocation}
+        } else if (renderProps) {
+          resolve(renderProps)
+        } else {
+          throw {...error, status: 400}
+        }
+      })
+    })
+
+    renderProps.radiumConfig = { userAgent: ctx.req.headers['user-agent'] }
+    ctx.body = await render(renderProps)
+
+  }
+  catch(error) {
+    if(error.redirectLocation) {
       ctx.redirect(redirectLocation.pathname + redirectLocation.search)
-    } else if (renderProps) {
-      renderProps.radiumConfig = { userAgent: ctx.req.headers['user-agent'] }
-      ctx.body = render(renderProps)
-    } else {
-      ctx.throw(400)
     }
-  })
+    else {
+      ctx.throw(error.status, error.message)
+    }
+  }
+
 })
 
 app.listen(port, () => console.log("server started"))

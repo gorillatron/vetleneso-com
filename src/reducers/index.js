@@ -1,12 +1,18 @@
 
 import {combineReducers} from "redux"
+import {FETCH_GALLERY} from "../actions"
 
-function state(state = {}) {
-  return state
+function gallery(state = {}, action) {
+  switch(action.type) {
+    case FETCH_GALLERY:
+      return {...state, images: ["tore", "pål", "per"]}
+    default:
+      return state
+  }
 }
 
 const app = combineReducers({
-  state
+  gallery
 })
 
 export default app
