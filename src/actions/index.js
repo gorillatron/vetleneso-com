@@ -1,7 +1,13 @@
 
 
 export const FETCH_GALLERY = "FETCH_GALLERY"
+export const FETCH_GALLERY_RESOLVE = "FETCH_GALLERY_RESOLVE"
 
 export function fetchGallery() {
-  return {type: FETCH_GALLERY}
+  return { type: FETCH_GALLERY,
+           promise: new Promise((resolve) => {
+             setTimeout(() => {
+               resolve(['image foo', 'image bar'])
+             }, 500)
+           })}
 }

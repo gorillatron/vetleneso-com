@@ -5,8 +5,8 @@ import staticCache from 'koa-static-cache'
 import path from 'path'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { createStoreWithMiddleware } from './store'
 import reducers from './reducers'
 import Root from './containers/Root'
 import { match, RoutingContext } from 'react-router'
@@ -25,7 +25,7 @@ app.use(koaConvert(staticCache(path.join(__dirname, '../resources'), {
 
 async function render(renderProps) {
 
-  const store = createStore(reducers, {})
+  const store = createStoreWithMiddleware(reducers, {})
 
   const data = await fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
 
@@ -63,7 +63,7 @@ async function render(renderProps) {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
 
-        <!-- <script src="/js/client.js"></script> -!>
+        <script src="/js/clients.js"></script>
 
       </body>
     </html>
