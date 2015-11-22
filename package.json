@@ -35,6 +35,7 @@
     "koa-convert": "^1.1.0",
     "koa-static-cache": "^3.1.2",
     "lodash.throttle": "^3.0.4",
+    "mo-js": "^0.147.4",
     "radium": "^0.15.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",

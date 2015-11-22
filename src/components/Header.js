@@ -1,6 +1,8 @@
 
 import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
+import Mojs from '../lib/Mojs'
+
 
 const links = [
   {url: '/gallery', title:  'Gallery'},
@@ -11,22 +13,42 @@ const links = [
 
 var Header = Radium(class extends Component {
 
+  componentDidMount() {
+    this.refs['links'].find('li').forEach((li) => {
+      new Mojs.Tween({
+        repeat:   999,
+        delay:    100,
+        onUpdate: function (progress) {
+          var bounceProgress = mojs.easing.bounce.out(progress)
+          li.style.transform = 'translateY(' + 150*bounceProgress + 'px)'
+        }
+      }).run()
+    })
+  }
+
   render() {
     return (
-      <header className="row">
+      <header>
 
         <div id="logo-wrapper"
              className="twelve column"
-             style={{
-               transition: 'height 0.15s ease',
-               height: 300
+             style={{ backgroundImage: 'url("/images/chickentown_lr.jpg")',
+                      backgroundSize: 'cover',
+                      transition: 'height 0.15s ease',
+                      height: 300
              }}>
-          <img src="/images/neso_logo@1x.png"
-               style={{
-                 display: 'block',
-                 height: '100%',
-                 margin: '0px auto'
-               }}/>
+          <div style={{ backgroundColor: 'white',
+                        height: '240px',
+                        marginTop: '20px',
+                        padding: '10px',
+                        width: '100%' }}>
+            <img src="/images/neso_logo@1x.png"
+                 style={{
+                   display: 'block',
+                   height: '100%',
+                   margin: '0px auto'
+                 }}/>
+          </div>
         </div>
 
         <nav>
@@ -38,7 +60,8 @@ var Header = Radium(class extends Component {
           }}>
             {links.map((link, index) => (
               <li style={{ display: 'inline-block',
-                           padding: '15px' }}>
+                           padding: '15px',
+                           transform: 'translateY(-150px)' }}>
                 <a key={'menu_link_' + index}
                    style={{ color: 'rgb(60,60,60)',
                             ':hover': {

@@ -63,7 +63,7 @@ async function render(renderProps) {
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
 
-        <script src="/js/clients.js"></script>
+        <script src="/js/client.js"></script>
 
       </body>
     </html>

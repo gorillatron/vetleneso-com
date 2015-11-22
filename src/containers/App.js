@@ -15,11 +15,11 @@ class App extends Component {
       <div style={{ width: '100%',
                     height: '100%' }}>
 
+
         <div style={{ position: 'fixed',
                       zIndex: 1,
                       width: '100%',
                       height: '100%',
-                      'backgroundImage': 'url("/images/chickentown_lr.jpg")',
                       'backgroundSize': 'cover' }}>
         </div>
 
@@ -28,13 +28,13 @@ class App extends Component {
                       width: '100%',
                       height: '100%'}}>
 
+            <Header/>
+
             <div className="container"
                  style={{ padding: '1px',
                           minHeight: '100%',
                           backgroundColor: "rgba(255,255,255, 0.97)"
                  }}>
-
-              <Header/>
 
               <div id="content"
                    ref="outer-wrapper">
