@@ -18,7 +18,7 @@ class Gallery extends Component {
       for(let image of document.querySelectorAll('.gallery-image')) {
         new mojs.Tween({
           delay: 120 * i,
-          duration: 1500,
+          duration: 1200,
           onUpdate: (progress) => {
             var bp = mojs.easing.bounce.out(progress)
             image.style.opacity = progress
