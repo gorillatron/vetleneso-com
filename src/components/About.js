@@ -6,7 +6,7 @@ var About = Radium(class extends Component {
 
   componentDidMount() {
     new mojs.Tween({
-      delay: 700,
+      delay: 300,
       onUpdate: (progress) => {
         this.refs['content'].style.opacity = progress
       }

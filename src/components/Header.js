@@ -1,6 +1,7 @@
 
 import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
+import { Link } from 'react-router'
 
 
 const links = [
@@ -92,18 +93,15 @@ const Header = Radium(class extends Component {
                   style={{ display: 'inline-block',
                            padding: '15px',
                            opacity: 0 }}>
-                <a key={'menu_link_' + index}
-                   style={{ color: 'rgb(60,60,60)',
-                            ':hover': {
-                              color: 'rgb(10,10,10)'
-                            },
-                            fontFamily: 'Arial Black',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            textDecoration: 'none' }}
-                   href={link.url}>
-                  {link.title}
-                </a>
+                <Link style={{ color: 'rgb(60,60,60)',
+                         ':hover': {
+                           color: 'rgb(10,10,10)'
+                         },
+                         fontFamily: 'Arial Black',
+                         fontWeight: 'bold',
+                         textTransform: 'uppercase',
+                         textDecoration: 'none' }}
+                      to={link.url}>{link.title}</Link>
               </li>
             ))}
           </ul>
