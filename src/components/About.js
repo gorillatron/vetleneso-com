@@ -4,9 +4,22 @@ import Radium from "radium"
 
 var About = Radium(class extends Component {
 
+  componentDidMount() {
+    new mojs.Tween({
+      delay: 700,
+      onUpdate: (progress) => {
+        this.refs['content'].style.opacity = progress
+      }
+    }).run()
+  }
+
   render() {
     return (
-      <div className="row">
+      <div ref="content"
+           className="row"
+           style={{
+             opacity: 0
+           }}>
 
         <div className="one column">&nbsp;</div>
 

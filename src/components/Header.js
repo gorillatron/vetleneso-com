@@ -14,31 +14,36 @@ const links = [
 const Header = Radium(class extends Component {
 
   componentDidMount() {
-    var offset = -60
+    setTimeout(() => this.imageAnimation(), 33)
+    setTimeout(() => this.linksAnimation(), 66)
+  }
 
+  imageAnimation() {
+    new mojs.Tween({
+      delay: 150,
+      duration: 1000,
+      onUpdate: (progress) => {
+        var bp = mojs.easing.bounce.out(progress)
+        this.refs['logo-image'].style.transform = `scale(${bp})`
+      }
+    }).run()
+  }
+
+  linksAnimation() {
+    var offset = -60
     var i = 1
     for(let menuItem of this.refs['menu-items'].querySelectorAll('li')) {
       new mojs.Tween({
-        delay: 190 * i + 600,
-        onUpdate: function (progress) {
+        delay: 99 * i + 600,
+        duration: 200,
+        onUpdate: (progress) => {
           var bp = mojs.easing.bounce.out(progress)
           var y = offset + ((offset * -1) * bp)
-          menuItem.style.transform = `translateY(${y}px)`
+          menuItem.style.opacity = progress
         }
       }).run()
       i++
     }
-
-    const logoImage = this.refs['logo-image']
-
-    new mojs.Tween({
-      delay: 150,
-      onUpdate: function (progress) {
-        var bp = mojs.easing.bounce.out(progress)
-        logoImage.style.transform = `scale(${bp})`
-      }
-    }).run()
-
   }
 
   render() {
@@ -85,7 +90,7 @@ const Header = Radium(class extends Component {
             {links.map((link, index) => (
               <li style={{ display: 'inline-block',
                            padding: '15px',
-                           transform: 'translateY(-60px)' }}>
+                           opacity: 0 }}>
                 <a key={'menu_link_' + index}
                    style={{ color: 'rgb(60,60,60)',
                             ':hover': {

@@ -22,6 +22,7 @@
     "osx-notifier": "^0.2.1"
   },
   "dependencies": {
+    "animation-frame": "^0.2.5",
     "babel": "^6.1.18",
     "babel-cli": "^6.1.2",
     "babel-core": "^6.2.1",
@@ -43,6 +44,7 @@
     "react-redux": "^4.0.0",
     "react-router": "^1.0.0",
     "redux": "^3.0.4",
-    "redux-promise-middleware": "^2.2.1"
+    "redux-promise-middleware": "^2.2.1",
+    "requestanimationframe": "0.0.22"
   }
 }
