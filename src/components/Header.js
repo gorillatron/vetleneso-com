@@ -14,9 +14,31 @@ const links = [
 const Header = Radium(class extends Component {
 
   componentDidMount() {
+    var offset = -60
+
+    var i = 1
     for(let menuItem of this.refs['menu-items'].querySelectorAll('li')) {
-      console.log(menuItem)
+      new mojs.Tween({
+        delay: 190 * i + 600,
+        onUpdate: function (progress) {
+          var bp = mojs.easing.bounce.out(progress)
+          var y = offset + ((offset * -1) * bp)
+          menuItem.style.transform = `translateY(${y}px)`
+        }
+      }).run()
+      i++
     }
+
+    const logoImage = this.refs['logo-image']
+
+    new mojs.Tween({
+      delay: 150,
+      onUpdate: function (progress) {
+        var bp = mojs.easing.bounce.out(progress)
+        logoImage.style.transform = `scale(${bp})`
+      }
+    }).run()
+
   }
 
   render() {
@@ -38,11 +60,13 @@ const Header = Radium(class extends Component {
                           marginTop: '20px',
                           padding: '10px',
                           width: '100%' }}>
-              <img src="/images/neso_logo@1x.png"
+              <img ref="logo-image"
+                   src="/images/neso_logo@1x.png"
                    style={{
                      display: 'block',
                      height: '100%',
-                     margin: '0px auto'
+                     margin: '0px auto',
+                     transform: 'scale(0)'
                    }}/>
             </div>
           </div>
@@ -61,7 +85,7 @@ const Header = Radium(class extends Component {
             {links.map((link, index) => (
               <li style={{ display: 'inline-block',
                            padding: '15px',
-                           transform: 'translateY(-150px)' }}>
+                           transform: 'translateY(-60px)' }}>
                 <a key={'menu_link_' + index}
                    style={{ color: 'rgb(60,60,60)',
                             ':hover': {
