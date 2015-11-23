@@ -5,12 +5,21 @@ import Radium from "radium"
 var About = Radium(class extends Component {
 
   componentDidMount() {
+    this.fadeInAnimation()
+    this.imageAnimation()
+  }
+
+  fadeInAnimation() {
     new mojs.Tween({
       delay: 300,
       onUpdate: (progress) => {
         this.refs['content'].style.opacity = progress
       }
     }).run()
+  }
+
+  imageAnimation() {
+    console.log('About.imageAnimation() UNIMPLEMENTED')
   }
 
   render() {
