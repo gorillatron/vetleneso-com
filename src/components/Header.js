@@ -88,7 +88,8 @@ const Header = Radium(class extends Component {
                        margin: 0
           }}>
             {links.map((link, index) => (
-              <li style={{ display: 'inline-block',
+              <li key={index}
+                  style={{ display: 'inline-block',
                            padding: '15px',
                            opacity: 0 }}>
                 <a key={'menu_link_' + index}

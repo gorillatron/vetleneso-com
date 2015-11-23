@@ -7,9 +7,22 @@ var browserify = require("browserify")
 var notify = require('osx-notifier')
 
 
+var babelrc = JSON.parse(fs.readFileSync('./.babelrc', 'utf8'))
+
+if(!babelrc.plugins)
+  babelrc.plugins = []
+
+
+babelrc.plugins.push(["babel-plugin-module-alias", [
+  { "src": "./src/api/client.js", "expose": "api" }
+]])
+
+
+console.log(babelrc)
+
 gulp.task("build-client", (cb) => {
   browserify({ debug: true })
-    .transform(babelify)
+    .transform(babelify, babelrc)
     .require("./src/client.js", { entry: true })
     .bundle()
     .on("error", (err) => {
