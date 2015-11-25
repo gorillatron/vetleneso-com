@@ -9,7 +9,7 @@ import Root from './containers/Root'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { createStoreWithMiddleware } from './store'
 import reducers from './reducers'
-import { createRoutes } from './routes'
+import { createRoutes } from './lib//routes'
 
 
 var init = async function() {

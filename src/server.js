@@ -5,7 +5,7 @@ import koaConvert from 'koa-convert'
 import staticCache from 'koa-static-cache'
 import path from 'path'
 import apiMiddleware from './api/middleware'
-import render from './render'
+import render from './lib/render'
 
 const app = new Koa()
 const port = process.env.PORT || 3000

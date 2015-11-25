@@ -2,12 +2,12 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { createStoreWithMiddleware } from './store'
-import reducers from './reducers'
-import Root from './containers/Root'
+import { createStoreWithMiddleware } from '../store'
+import reducers from '../reducers'
+import Root from '../containers/Root'
 import { match, RoutingContext } from 'react-router'
 import { createRoutes } from './routes'
-import fetchComponentData from './lib/fetchComponentData'
+import fetchComponentData from './fetchComponentData'
 
 
 
