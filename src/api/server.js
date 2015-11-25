@@ -1,7 +1,6 @@
 
 import path from 'path'
 import fsp from 'fs-promise'
-import ApiProxy from './ApiProxy'
 
 
 export const handlers = {
@@ -14,9 +13,7 @@ export const handlers = {
     const imageFiles = await fsp.readdir(path.join(resourcesRoot, galleryRoot))
 
     const images = imageFiles
-      .filter((imageFile) => {
-        return imageFile.match(/jpg|png/)
-      })
+      .filter(isImage)
       .map((imageFile) => {
         return { url: path.join(galleryRoot, imageFile) }
       })
@@ -27,9 +24,18 @@ export const handlers = {
 }
 
 
-const api = new ApiProxy(function(methodName, params) {
-  return handlers[methodName](params)
-})
+function isImage(file) {
+  return file.match(/jpg|png|gif/)
+}
+
+
+const api = {
+
+  callMethod(methodName, params) {
+    return handlers[methodName](params)
+  }
+
+}
 
 
 export default api
