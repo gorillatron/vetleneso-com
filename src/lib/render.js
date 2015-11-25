@@ -10,7 +10,7 @@ import { createRoutes } from './routes'
 import fetchComponentData from './fetchComponentData'
 
 
-
+// Creates a Koa middleware that uses the react app to render the html to the client.
 export default function middlewareFactory() {
   return async function(ctx, next) {
 
@@ -33,6 +33,7 @@ export default function middlewareFactory() {
       })
 
       renderProps.radiumConfig = { userAgent: ctx.req.headers['user-agent'] }
+
       ctx.body = await renderHTML(renderProps)
 
     }

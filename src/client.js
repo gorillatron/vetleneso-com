@@ -1,4 +1,6 @@
 
+// Include the babel polyfill
+// Todo: find out if this should be requiered seperatly depending on the browser env
 import babelPolyfil from "babel-polyfill"
 
 import React from 'react'
@@ -14,10 +16,13 @@ import { createRoutes } from './lib//routes'
 
 var init = async function() {
 
+  // The state as set up by the server for rehydration
   const initialState = window.__INITIAL_STATE__
 
   const routes = await createRoutes()
 
+  // Inject the state back into the store.
+  // This is called rehydrating in react terms.
   const store = createStoreWithMiddleware(reducers, initialState)
   const appElement = document.getElementById('app')
 
