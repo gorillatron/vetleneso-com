@@ -1,5 +1,5 @@
 
-require("babel-polyfill")
+import babelPolyfil from "babel-polyfill"
 
 import React from 'react'
 import { render } from 'react-dom'

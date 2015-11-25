@@ -5,10 +5,8 @@ import { Link } from 'react-router'
 
 
 const links = [
-  {url: '/gallery', title:  'Gallery'},
-  {url: '/clothes', title:  'Klær'},
-  {url: '/about', title:  'About'},
-  {url: '/contact', title:  'Contact'}
+  {url: '/', title:  'Gallery'},
+  {url: '/about', title:  'About'}
 ]
 
 

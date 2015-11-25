@@ -36,6 +36,7 @@
     "history": "^1.13.1",
     "koa": "^2.0.0-alpha.3",
     "koa-convert": "^1.1.0",
+    "koa-router": "^6.2.0",
     "koa-static-cache": "^3.1.2",
     "lodash.throttle": "^3.0.4",
     "mo-js": "^0.147.4",
@@ -46,6 +47,7 @@
     "react-router": "^1.0.0",
     "redux": "^3.0.4",
     "redux-promise-middleware": "^2.2.1",
+    "request-promise": "^1.0.2",
     "split-array": "^1.0.1"
   }
 }

@@ -1,23 +1,35 @@
 
 import path from 'path'
 import fsp from 'fs-promise'
+import ApiProxy from './ApiProxy'
 
 
-export var fetchGallery = async function() {
+export const handlers = {
 
-  const resourcesRoot = path.join(__dirname, '../../resources')
-  const galleryRoot = '/images/content/galleri'
+  async fetchGallery() {
 
-  const imageFiles = await fsp.readdir(path.join(resourcesRoot, galleryRoot))
+    const resourcesRoot = path.join(__dirname, '../../resources')
+    const galleryRoot = '/images/content/galleri'
 
-  const images = imageFiles
-    .filter((imageFile) => {
-      return imageFile.match(/jpg|png/)
-    })
-    .map((imageFile) => {
-      return { url: path.join(galleryRoot, imageFile) }
-    })
+    const imageFiles = await fsp.readdir(path.join(resourcesRoot, galleryRoot))
 
-  return images
+    const images = imageFiles
+      .filter((imageFile) => {
+        return imageFile.match(/jpg|png/)
+      })
+      .map((imageFile) => {
+        return { url: path.join(galleryRoot, imageFile) }
+      })
+
+    return images
+  }
+
 }
 
+
+const api = new ApiProxy(function(methodName, params) {
+  return handlers[methodName](params)
+})
+
+
+export default api

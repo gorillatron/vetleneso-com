@@ -13,6 +13,11 @@ class Gallery extends Component {
   ]
 
   componentDidMount() {
+
+    if(!this.props.gallery || !this.props.gallery.images) {
+      this.props.dispatch(fetchGallery())
+    }
+
     setTimeout(() => {
       var i = 1
       for(let image of document.querySelectorAll('.gallery-image')) {
@@ -41,18 +46,18 @@ class Gallery extends Component {
     return (
       <div>
 
-        {imageRows.map((row) => (
+        {imageRows.map((row, index) => (
 
-          <div className="row"
+          <div key={`row_${index}`}
+               className="row"
                style={{ marginBottom: '15px' }}>
 
             {row.map((image, index) => (
 
-              <div className="three columns"
-                   style={{  }}>
+              <div key={`galleryimage_${index}`}
+                   className="three columns">
 
                 <img className="gallery-image"
-                     key={`galleryimage_${index}`}
                      style={{width: '100%',
                              opacity: 0.01,
                              transform: 'scale(0.01)'}}
