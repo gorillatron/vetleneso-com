@@ -14,10 +14,12 @@ import fetchComponentData from './fetchComponentData'
 export default function middlewareFactory() {
   return async function(ctx, next) {
 
+    // Create the routes component to pass to the react-router/match
     const routes = await createRoutes()
 
     try {
 
+      // Match the route with the routes and generate the react renderProps
       const renderProps = await new Promise((resolve, reject) => {
         match({routes: routes, location: ctx.request.url }, (error, redirectLocation, renderProps) => {
           if (error) {
@@ -32,8 +34,10 @@ export default function middlewareFactory() {
         })
       })
 
+      // Set the user-agent for the radium css module
       renderProps.radiumConfig = { userAgent: ctx.req.headers['user-agent'] }
 
+      // Render the html to the client
       ctx.body = await renderHTML(renderProps)
 
     }
@@ -52,10 +56,14 @@ export default function middlewareFactory() {
 
 async function renderHTML(renderProps) {
 
+  // Promise based redux store
   const store = createStoreWithMiddleware(reducers, {})
 
+  // Fetch the data that the components are asking for in
+  // their static 'query' param
   const data = await fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
 
+  // Render the react app to a string
   const html = renderToString(
     <Root radiumConfig={renderProps.radiumConfig}>
       <Provider store={store}>
@@ -64,6 +72,9 @@ async function renderHTML(renderProps) {
     </Root>
   )
 
+  // Fetch the state from the store and pass it to the client.
+  // So that the client can pick up the state from where the server left of.
+  // In isomorphic terms we call this dehydration and rehydration.
   const initialState = store.getState()
 
   return `
