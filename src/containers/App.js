@@ -17,7 +17,9 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ width: '100%',
+      <div style={{ position: 'relative',
+                    zIndex: 0,
+                    width: '100%',
                     height: '100%' }}>
 
 

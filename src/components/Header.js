@@ -46,21 +46,22 @@ const Header = Radium(class extends Component {
   }
 
   liOnClick(event) {
-    console.log(event.clientX)
     var burst = new mojs.Burst({
+      count: 7,
+      radius: { 10: 50},
       shape:    'circle',
-      fill:     [ 'deeppink', 'cyan', 'orange' ],
+      fill:     [ '#00FA92', '#C0E752', '#FECE52', '#FFA0F4', '#00BCAF', '#FF1CEE' ],
       x: event.clientX, y: event.clientY
     })
   }
 
   render() {
     return (
-      <header>
+      <header style={{ position: 'relative',
+                       zIndex: 0 }}>
 
-        <div className="container"
-             style={{ zIndex: 3
-             }}>
+        <div className="container">
+
           <div id="logo-wrapper"
                className="twelve column"
                style={{ backgroundImage: 'url("/images/chickentown_lr.jpg")',
@@ -68,6 +69,7 @@ const Header = Radium(class extends Component {
                         transition: 'height 0.15s ease',
                         height: 300
                }}>
+
             <div style={{ backgroundColor: 'white',
                           height: '240px',
                           marginTop: '20px',
@@ -82,11 +84,13 @@ const Header = Radium(class extends Component {
                      transform: 'scale(0)'
                    }}/>
             </div>
+
           </div>
         </div>
 
 
         <nav>
+
           <ul ref="menu-items"
               style={{ position: 'relative',
                        textAlign: 'center',
@@ -95,6 +99,7 @@ const Header = Radium(class extends Component {
                        zIndex: 1,
                        margin: 0
           }}>
+
             {links.map((link, index) => (
               <li onClick={(e) => this.liOnClick(e)}
                   key={index}
@@ -112,6 +117,7 @@ const Header = Radium(class extends Component {
                       to={link.url}>{link.title}</Link>
               </li>
             ))}
+
           </ul>
         </nav>
 
