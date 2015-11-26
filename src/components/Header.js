@@ -57,21 +57,21 @@ const Header = Radium(class extends Component {
 
   render() {
     return (
-      <header style={{ position: 'relative',
-                       zIndex: 0 }}>
+      <header className="container"
+              style={{ position: 'relative',
+                       padding: '0px 15px',
+                       zIndex: 0,
+                       backgroundColor: 'white'}}>
 
-        <div className="container">
+        <div>
 
           <div id="logo-wrapper"
                className="twelve column"
-               style={{ backgroundImage: 'url("/images/chickentown_lr.jpg")',
-                        backgroundSize: 'cover',
-                        transition: 'height 0.15s ease',
+               style={{ transition: 'height 0.15s ease',
                         height: 300
                }}>
 
-            <div style={{ backgroundColor: 'white',
-                          height: '240px',
+            <div style={{ height: '240px',
                           marginTop: '20px',
                           padding: '10px',
                           width: '100%' }}>
