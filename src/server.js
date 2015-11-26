@@ -1,14 +1,20 @@
 
 
 import Koa from 'koa'
+import locale from 'koa-locale'
 import koaConvert from 'koa-convert'
 import staticCache from 'koa-static-cache'
 import path from 'path'
 import apiMiddleware from './api/middleware'
 import render from './lib/render'
 
+
 const app = new Koa()
 const port = process.env.PORT || 3000
+
+// Use the locale module so we can get the locale from the header
+// ctx.getLocaleFromHeader()
+locale(app)
 
 // Serve static files
 // with caching for 10 days

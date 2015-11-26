@@ -8,6 +8,7 @@ import Root from '../containers/Root'
 import { match, RoutingContext } from 'react-router'
 import { createRoutes } from './routes'
 import fetchComponentData from './fetchComponentData'
+import { setLocale } from '../actions'
 
 
 // Creates a Koa middleware that uses the react app to render the html to the client.
@@ -37,8 +38,18 @@ export default function middlewareFactory() {
       // Set the user-agent for the radium css module
       renderProps.radiumConfig = { userAgent: ctx.req.headers['user-agent'] }
 
+      // Promise based redux store
+      const store = createStoreWithMiddleware(reducers, {})
+
+      // Set the locale in the store
+      store.dispatch(setLocale(ctx.getLocaleFromCookie() || ctx.getLocaleFromHeader()))
+
+      // Fetch the data that the components are asking for in
+      // their static 'query' param
+      await fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+
       // Render the html to the client
-      ctx.body = await renderHTML(renderProps)
+      ctx.body = await renderHTML(renderProps, store)
 
     }
     catch(error) {
@@ -54,14 +65,7 @@ export default function middlewareFactory() {
 }
 
 
-async function renderHTML(renderProps) {
-
-  // Promise based redux store
-  const store = createStoreWithMiddleware(reducers, {})
-
-  // Fetch the data that the components are asking for in
-  // their static 'query' param
-  const data = await fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+async function renderHTML(renderProps, store) {
 
   // Render the react app to a string
   const html = renderToString(

@@ -4,7 +4,12 @@ import {connect} from 'react-redux'
 import Radium from 'radium'
 import Header from '../components/Header'
 
+
 class App extends Component {
+
+  static query = [
+
+  ]
 
   constructor() {
     super()
