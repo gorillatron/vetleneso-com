@@ -97,6 +97,10 @@ async function renderHTML(renderProps, store) {
             height: 100%;
             width: 100%;
           }
+          svg {
+            display: block;
+            z-index: 20;
+          }
         </style>
 
         <div id="app">${html}</div>

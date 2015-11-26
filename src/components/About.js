@@ -13,7 +13,9 @@ var About = Radium(class extends Component {
     new mojs.Tween({
       delay: 300,
       onUpdate: (progress) => {
-        this.refs['content'].style.opacity = progress
+        setTimeout(() => {
+          this.refs['content'].style.opacity = progress
+        }, 66)
       }
     }).run()
   }
