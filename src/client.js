@@ -17,7 +17,7 @@ import createCookie from './lib/createCookie'
 import * as actions from './actions'
 
 
-var init = async function() {
+(async function() {
 
   // The state as set up by the server for rehydration
   const initialState = window.__INITIAL_STATE__
@@ -36,8 +36,6 @@ var init = async function() {
     createCookie('locale', locale)
   })
 
-  console.log('store.state', store.getState())
-
   window.dev = {
     store,
     actions
@@ -51,6 +49,4 @@ var init = async function() {
     </Root>,
     appElement
   )
-}
-
-init()
+})();
