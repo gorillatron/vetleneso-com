@@ -7,13 +7,13 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
+import cookies from 'js-cookie'
 import Root from './containers/Root'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { createStoreWithMiddleware } from './store'
 import reducers from './reducers'
 import { createRoutes } from './lib/routes'
 import observeStore from './lib/observeStore'
-import createCookie from './lib/createCookie'
 import * as actions from './actions'
 
 
@@ -33,7 +33,7 @@ import * as actions from './actions'
   // Observe the change of locale and set the new locale
   // in the cookie so subsequent request use the same locale.
   observeStore(store, (state) => state.locale, (locale) => {
-    createCookie('locale', locale)
+    cookies.set('locale', locale)
   })
 
   window.dev = {
