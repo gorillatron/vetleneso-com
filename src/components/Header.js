@@ -45,18 +45,6 @@ const Header = Radium(class extends Component {
     }
   }
 
-  liOnClick(event) {
-    // const y = event.clientY + document.body.scrollTop
-    // const x = event.clientX
-    // var burst = new mojs.Burst({
-    //   count: 7,
-    //   radius: { 10: 50},
-    //   shape:    'circle',
-    //   fill:     [ '#00FA92', '#C0E752', '#FECE52', '#FFA0F4', '#00BCAF', '#FF1CEE' ],
-    //   x, y
-    // })
-  }
-
   render() {
     return (
       <header className="container"
@@ -103,8 +91,7 @@ const Header = Radium(class extends Component {
           }}>
 
             {links.map((link, index) => (
-              <li onClick={(e) => this.liOnClick(e)}
-                  key={index}
+              <li key={index}
                   style={{ display: 'inline-block',
                            padding: '15px',
                            opacity: 0 }}>
