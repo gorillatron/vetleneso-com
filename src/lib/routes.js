@@ -12,6 +12,7 @@ export function createRoutes(){
     resolve([
       <Route path="/" component={AppContainer}>
         <IndexRoute component={Gallery}/>
+        <Route path="gallery(/:fileName)" component={Gallery} />
         <Route path="about" component={AboutComponent} />
       </Route>
     ])

@@ -2,8 +2,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import splitArray from 'split-array'
+import { Link } from 'react-router'
 import { fetchGallery, setSelectedImage } from '../actions'
-
 
 
 class Gallery extends Component {
@@ -42,7 +42,12 @@ class Gallery extends Component {
             splitArray(gallery.images, 4) :
             []
 
-    const selectedImage = gallery ? gallery.selectedImage : void 0
+    let selectedImage = void 0
+
+    if(this.props.params && this.props.params.fileName) {
+      const selectedImageFileName = this.props.params.fileName
+      selectedImage = this.props.gallery.images.find((image) => image.fileName == selectedImageFileName)
+    }
 
     return (
       <div>
@@ -55,18 +60,20 @@ class Gallery extends Component {
                         width: '100%',
                         height: '100%',
                         backgroundColor: 'rgba(0,0,0, 0.8)' }}>
-            <div onClick={() => dispatch(setSelectedImage(null))}
-                 style={{ position: 'absolute',
-                          cursor: 'pointer',
-                          top: '15px',
-                          right: '20px',
-                          fontSize: '1.7em',
-                          color: 'white'}}>
-              &#10006;
-            </div>
-            <img src={selectedImage.url}
+            <Link to="/gallery">
+              <div style={{ position: 'absolute',
+                            cursor: 'pointer',
+                            top: '15px',
+                            right: '20px',
+                            fontSize: '1.7em',
+                            color: 'white'}}>
+                &#10006;
+              </div>
+            </Link>
+            <img ref="selected-image-img"
+                 src={selectedImage.url}
                  style={{ display: 'block',
-                          margin: '10% auto',
+                          margin: '5% auto',
                           maxWidth: '80%',
                           height: '80%'}}/>
           </div>}
@@ -79,19 +86,19 @@ class Gallery extends Component {
 
             {row.map((image, index) => (
 
-              <div onClick={() => dispatch(setSelectedImage(image))}
-                   key={`galleryimage_${index}`}
+              <div key={`galleryimage_${index}`}
                    className="three columns">
 
-                <img className="gallery-image"
-                     style={{ width: '100%',
-                              opacity: 0.01,
-                              cursor: 'pointer',
-                              transform: 'scale(0.01)' }}
-                     src={image.url} />
+                <Link to={`/gallery/${image.fileName}`}>
+                  <img className="gallery-image"
+                       style={{ width: '100%',
+                                opacity: 0.01,
+                                cursor: 'pointer',
+                                transform: 'scale(0.01)' }}
+                       src={image.url} />
+                </Link>
 
               </div>
-
             ))}
 
           </div>
@@ -102,8 +109,10 @@ class Gallery extends Component {
   }
 }
 
+
 function select(state) {
   return {gallery: state.gallery}
 }
+
 
 export default connect(select)(Gallery)

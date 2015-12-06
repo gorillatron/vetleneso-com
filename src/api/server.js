@@ -14,8 +14,9 @@ export const handlers = {
 
     const images = imageFiles
       .filter(isImage)
-      .map((imageFile) => {
-        return { url: path.join(galleryRoot, imageFile) }
+      .map((fileName) => {
+        return { fileName,
+                 url: path.join(galleryRoot, fileName) }
       })
 
     return images

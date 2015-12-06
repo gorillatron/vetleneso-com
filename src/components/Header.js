@@ -46,13 +46,15 @@ const Header = Radium(class extends Component {
   }
 
   liOnClick(event) {
-    var burst = new mojs.Burst({
-      count: 7,
-      radius: { 10: 50},
-      shape:    'circle',
-      fill:     [ '#00FA92', '#C0E752', '#FECE52', '#FFA0F4', '#00BCAF', '#FF1CEE' ],
-      x: event.clientX, y: event.clientY
-    })
+    // const y = event.clientY + document.body.scrollTop
+    // const x = event.clientX
+    // var burst = new mojs.Burst({
+    //   count: 7,
+    //   radius: { 10: 50},
+    //   shape:    'circle',
+    //   fill:     [ '#00FA92', '#C0E752', '#FECE52', '#FFA0F4', '#00BCAF', '#FF1CEE' ],
+    //   x, y
+    // })
   }
 
   render() {
