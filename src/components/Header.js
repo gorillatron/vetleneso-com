@@ -95,14 +95,14 @@ const Header = Radium(class extends Component {
                   style={{ display: 'inline-block',
                            padding: '15px',
                            opacity: 0 }}>
-                <Link style={{ color: 'rgb(60,60,60)',
-                         ':hover': {
-                           color: 'rgb(10,10,10)'
-                         },
-                         fontFamily: 'Arial Black',
-                         fontWeight: 'bold',
-                         textTransform: 'uppercase',
-                         textDecoration: 'none' }}
+                <Link style={{ color: link.url == this.props.pathname ? 'rgb(20,20,20)' : 'rgb(90,90,90)',
+                               ':hover': {
+                                 color: 'rgb(10,10,10)'
+                               },
+                               fontFamily: 'Arial Black',
+                               fontWeight: 'bold',
+                               textTransform: 'uppercase',
+                               textDecoration: 'none' }}
                       to={link.url}>{link.title}</Link>
               </li>
             ))}

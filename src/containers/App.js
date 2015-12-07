@@ -7,14 +7,6 @@ import Header from '../components/Header'
 
 class App extends Component {
 
-  static query = [
-
-  ]
-
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     document.body.addEventListener('click', (event) => {
       const y = event.clientY + document.body.scrollTop
@@ -50,7 +42,7 @@ class App extends Component {
                       width: '100%',
                       height: '100%'}}>
 
-            <Header/>
+            <Header pathname={this.props.location.pathname}/>
 
             <div className="container"
                  style={{ padding: '0px 15px',
