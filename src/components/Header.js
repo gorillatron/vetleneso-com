@@ -5,8 +5,9 @@ import { Link } from 'react-router'
 
 
 const links = [
-  {url: '/', title:  'Gallery'},
-  {url: '/about', title:  'About'}
+  {url: '/gallery', title:  'Gallery'},
+  {url: '/about', title:  'About'},
+  {url: '/contact', title:  'Contact'}
 ]
 
 
@@ -95,15 +96,15 @@ const Header = Radium(class extends Component {
                   style={{ display: 'inline-block',
                            padding: '15px',
                            opacity: 0 }}>
-                <Link style={{ color: link.url == this.props.pathname ? 'rgb(20,20,20)' : 'rgb(90,90,90)',
-                               ':hover': {
-                                 color: 'rgb(10,10,10)'
-                               },
+                <Link style={{ color: 'rgb(110,110,110)',
                                fontFamily: 'Arial Black',
                                fontWeight: 'bold',
                                textTransform: 'uppercase',
                                textDecoration: 'none' }}
-                      to={link.url}>{link.title}</Link>
+                      activeStyle={{ color: 'rgb(20,20,20)' }}
+                      to={link.url}>
+                        {link.title}
+                </Link>
               </li>
             ))}
 
