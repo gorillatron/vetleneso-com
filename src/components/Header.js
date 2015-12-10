@@ -4,15 +4,35 @@ import Radium from 'radium'
 import { Link, IndexLink } from 'react-router'
 
 
-const links = {
-  pages: [
-    {url: '/gallery', title:  'Gallery'},
-    {url: '/about', title:  'About'},
-    {url: '/contact', title:  'Contact'}
-  ]
-}
+const pages = [
+  {url: '/gallery', title:  'Gallery', isIndex: true},
+  {url: '/about', title:  'About'},
+  {url: '/contact', title:  'Contact'}
+]
 
 const styles = {
+  header: {
+    position: 'relative',
+    padding: '0px 15px',
+    zIndex: 0,
+    backgroundColor: 'white'
+  },
+  logowrapper: {
+    transition: 'height 0.15s ease',
+    height: 300
+  },
+  logoimagewrapper: {
+    height: '240px',
+    marginTop: '20px',
+    padding: '10px',
+    width: '100%'
+  },
+  logoimage: {
+    display: 'block',
+    height: '100%',
+    margin: '0px auto',
+    transform: 'scale(0)'
+  },
   nav: {
     ul: {
       position: 'relative',
@@ -77,31 +97,18 @@ const Header = Radium(class extends Component {
   render() {
     return (
       <header className="container"
-              style={{ position: 'relative',
-                       padding: '0px 15px',
-                       zIndex: 0,
-                       backgroundColor: 'white'}}>
+              style={styles.header}>
 
         <div>
 
           <div id="logo-wrapper"
                className="twelve column"
-               style={{ transition: 'height 0.15s ease',
-                        height: 300
-               }}>
+               style={styles.logowrapper}>
 
-            <div style={{ height: '240px',
-                          marginTop: '20px',
-                          padding: '10px',
-                          width: '100%' }}>
+            <div style={styles.logoimagewrapper}>
               <img ref="logo-image"
                    src="/images/neso_logo@1x.png"
-                   style={{
-                     display: 'block',
-                     height: '100%',
-                     margin: '0px auto',
-                     transform: 'scale(0)'
-                   }}/>
+                   style={styles.logoimage}/>
             </div>
 
           </div>
@@ -113,10 +120,10 @@ const Header = Radium(class extends Component {
           <ul ref="menu-items"
               style={styles.nav.ul}>
 
-            {links.pages.map((link, index) => (
+            {pages.map((link, index) => (
               <li key={index}
                   style={styles.nav.li}>
-                <Link style={Object.assign({}, styles.nav.link, isActiveLink(this.props.pathname, link.url) ? styles.nav.activeLink : {})}
+                <Link style={Object.assign({}, styles.nav.link, isActiveLink(this.props.pathname, link) ? styles.nav.activeLink : {})}
                       to={link.url}>
                   {link.title}
                 </Link>
@@ -132,10 +139,9 @@ const Header = Radium(class extends Component {
 
 })
 
-function isActiveLink(pathname, url) {
-  console.log(pathname, url)
-  return pathname === url ||
-         pathname === '/' && url.match('gallery')
+function isActiveLink(pathname, link) {
+  return pathname === link.url ||
+         pathname === '/' && link.isIndex
 }
 
 export default Header

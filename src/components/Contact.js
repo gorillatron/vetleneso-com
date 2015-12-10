@@ -28,7 +28,24 @@ var Contact = Radium(class extends Component {
 
         <div className="row">
           <div className="twelve columns">
-            contact
+            <table style={{ margin: '0px auto', width: '70%' }}>
+
+              <tr>
+                <td>Email:</td>
+                <td></td>
+              </tr>
+
+              <tr>
+                <td>Telefon:</td>
+                <td></td>
+              </tr>
+
+              <tr>
+                <td>What:</td>
+                <td></td>
+              </tr>
+
+            </table>
           </div>
         </div>
 
