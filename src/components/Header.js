@@ -1,14 +1,42 @@
 
 import React, {Component, PropTypes} from 'react'
 import Radium from 'radium'
-import { Link } from 'react-router'
+import { Link, IndexLink } from 'react-router'
 
 
-const links = [
-  {url: '/gallery', title:  'Gallery'},
-  {url: '/about', title:  'About'},
-  {url: '/contact', title:  'Contact'}
-]
+const links = {
+  pages: [
+    {url: '/gallery', title:  'Gallery'},
+    {url: '/about', title:  'About'},
+    {url: '/contact', title:  'Contact'}
+  ]
+}
+
+const styles = {
+  nav: {
+    ul: {
+      position: 'relative',
+      textAlign: 'center',
+      fontSize: '1.55em',
+      listStyleType: 'none',
+      zIndex: 1,
+      margin: 0
+    },
+    li: {
+      display: 'inline-block',
+      padding: '15px',
+      opacity: 0
+    },
+    link: {
+      color: 'rgb(110,110,110)',
+      fontFamily: 'Arial Black',
+      fontWeight: 'bold',
+      textTransform: 'uppercase',
+      textDecoration: 'none'
+    },
+    activeLink: { color: 'rgb(20,20,20)' }
+  }
+}
 
 
 const Header = Radium(class extends Component {
@@ -83,27 +111,14 @@ const Header = Radium(class extends Component {
         <nav>
 
           <ul ref="menu-items"
-              style={{ position: 'relative',
-                       textAlign: 'center',
-                       fontSize: '1.55em',
-                       listStyleType: 'none',
-                       zIndex: 1,
-                       margin: 0
-          }}>
+              style={styles.nav.ul}>
 
-            {links.map((link, index) => (
+            {links.pages.map((link, index) => (
               <li key={index}
-                  style={{ display: 'inline-block',
-                           padding: '15px',
-                           opacity: 0 }}>
-                <Link style={{ color: 'rgb(110,110,110)',
-                               fontFamily: 'Arial Black',
-                               fontWeight: 'bold',
-                               textTransform: 'uppercase',
-                               textDecoration: 'none' }}
-                      activeStyle={{ color: 'rgb(20,20,20)' }}
+                  style={styles.nav.li}>
+                <Link style={Object.assign({}, styles.nav.link, isActiveLink(this.props.pathname, link.url) ? styles.nav.activeLink : {})}
                       to={link.url}>
-                        {link.title}
+                  {link.title}
                 </Link>
               </li>
             ))}
@@ -116,5 +131,11 @@ const Header = Radium(class extends Component {
   }
 
 })
+
+function isActiveLink(pathname, url) {
+  console.log(pathname, url)
+  return pathname === url ||
+         pathname === '/' && url.match('gallery')
+}
 
 export default Header

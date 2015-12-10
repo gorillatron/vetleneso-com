@@ -41,6 +41,7 @@ gulp.task("build-client", (cb) => {
         message: err.message,
         group: 'taskdoer'
       })
+      console.log(err)
       cb() })
     .pipe(fs.createWriteStream("./resources/js/client.js"))
     .on("finish", () => {
