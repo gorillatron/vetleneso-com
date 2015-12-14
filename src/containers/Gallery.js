@@ -5,8 +5,6 @@ import splitArray from 'split-array'
 import { Link } from 'react-router'
 import { fetchGallery, setSelectedImage } from '../actions'
 
-// !TODO: Use inversion of controll for action creators.
-//        Pass in a provider that can call the actions and call component lifecycle actions.
 
 class Gallery extends Component {
 
@@ -15,8 +13,6 @@ class Gallery extends Component {
   ]
 
   componentDidMount() {
-
-    // !TODO: refactor to action creator provider.
 
     if(!this.props.gallery || !this.props.gallery.images) {
       this.props.dispatch(fetchGallery())
