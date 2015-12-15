@@ -1,11 +1,16 @@
 
 var fs = require("fs")
+var path = require('path')
 var gulp = require("gulp")
 var sourcemaps = require("gulp-sourcemaps")
 var babelify = require("babelify")
 var uglifyify = require("uglifyify")
 var browserify = require("browserify")
 var notify = require('osx-notifier')
+var del = require("del")
+var lwip = require("lwip")
+var async = require("async")
+
 
 
 var babelrc = JSON.parse(fs.readFileSync('./.babelrc', 'utf8'))
@@ -18,7 +23,53 @@ babelrc.plugins.push(["babel-plugin-module-alias", [
   { "src": "./src/api/client.js", "expose": "api" }
 ]])
 
-var debug = !(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'prod')
+
+const debug = !(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 'prod')
+
+
+gulp.task("create-gallery-thumbnails", (done) => {
+
+  const imageFolder = path.join(__dirname, 'resources/images/content/galleri')
+  const thumbFolder = path.join(__dirname, 'resources/images/content/galleri/thumbs')
+
+  del([thumbFolder + '/**', '!' + thumbFolder])
+    .then(() => {
+      const imageFileNames = fs.readdirSync(imageFolder)
+                               .filter((fileName) => fileName.match(/jpg|gif|png/))
+
+      const convertTasks = imageFileNames.map((imageFileName) => {
+        return function(callback) {
+          const imageFullPath = path.join(imageFolder, imageFileName)
+          const imageThumbPath = path.join(thumbFolder, imageFileName)
+          lwip.open(imageFullPath, (err, image) => {
+
+            if(err) {
+              return done(err)
+            }
+
+            image
+              .batch()
+              .scale(0.33)
+              .writeFile(imageThumbPath, callback);
+
+          });
+        }
+      })
+
+      async.parallel(convertTasks, (err, results) => {
+        if(err) {
+          console.log("ERROR:", err)
+          return done(err)
+        }
+        done() // success
+      })
+
+    })
+    .catch((err) => {
+      done(err)
+    })
+})
+
 
 gulp.task("build-client", (cb) => {
   var bundler = browserify({ debug: debug })

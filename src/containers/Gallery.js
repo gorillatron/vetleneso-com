@@ -46,7 +46,10 @@ class Gallery extends Component {
 
     if(this.props.params && this.props.params.fileName) {
       const selectedImageFileName = this.props.params.fileName
-      selectedImage = this.props.gallery.images.find((image) => image.fileName == selectedImageFileName)
+      selectedImage = this.props.gallery.images.find((image, index) => {
+        console.log(index)
+        return image.fileName == selectedImageFileName
+      })
     }
 
     return (
@@ -71,7 +74,7 @@ class Gallery extends Component {
               </div>
             </Link>
             <img ref="selected-image-img"
-                 src={selectedImage.url}
+                 src={selectedImage.imageUrl}
                  style={{ display: 'block',
                           margin: '5% auto',
                           maxWidth: '80%',
@@ -95,7 +98,7 @@ class Gallery extends Component {
                                 opacity: 0.01,
                                 cursor: 'pointer',
                                 transform: 'scale(0.01)' }}
-                       src={image.url} />
+                       src={image.thumbUrl} />
                 </Link>
 
               </div>

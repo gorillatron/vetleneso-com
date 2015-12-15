@@ -9,6 +9,7 @@ export const handlers = {
 
     const resourcesRoot = path.join(__dirname, '../../resources')
     const galleryRoot = '/images/content/galleri'
+    const thumbsRoot = '/images/content/galleri/thumbs'
 
     const imageFiles = await fsp.readdir(path.join(resourcesRoot, galleryRoot))
 
@@ -16,7 +17,8 @@ export const handlers = {
       .filter(isImage)
       .map((fileName) => {
         return { fileName,
-                 url: path.join(galleryRoot, fileName) }
+                 imageUrl: path.join(galleryRoot, fileName),
+                 thumbUrl: path.join(thumbsRoot, fileName)  }
       })
 
     return images
