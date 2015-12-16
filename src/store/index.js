@@ -4,27 +4,31 @@ import { createStore, applyMiddleware } from 'redux'
 
 function promiseMiddleware() {
   return next => action => {
-    const { promise, type, ...rest } = action;
+    const { promise, type, ...rest } = action
 
-    if (!promise) return next(action);
+    if (!promise) return next(action)
 
-    const RESOLVE = type + '_RESOLVE';
-    const PENDING = type + '_PENDING';
-    const REJECT = type + '_REJECT';
+    const RESOLVE = type + '_RESOLVE'
+    const PENDING = type + '_PENDING'
+    const REJECT = type + '_REJECT'
 
-    next({ ...rest, type: PENDING });
+    next({ ...rest, type: PENDING })
 
     return promise
       .then(value => {
-        next({ ...rest, value, type: RESOLVE });
-        return true;
+        next({ ...rest, value, type: RESOLVE })
+        return true
       })
       .catch(error => {
-        next({ ...rest, error, type: REJECT });
-        return false;
-      });
-  };
+        next({ ...rest, error, type: REJECT })
+        return false
+      })
+  }
 }
 
+const GLOBAL = typeof global !== undefined ? global : window
 
-export const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore)
+export const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(
+  (GLOBAL.devToolsExtension ?
+    GLOBAL.devToolsExtension()(createStore) :
+    createStore))
