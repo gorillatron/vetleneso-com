@@ -47,7 +47,6 @@ class Gallery extends Component {
     if(this.props.params && this.props.params.fileName) {
       const selectedImageFileName = this.props.params.fileName
       selectedImage = this.props.gallery.images.find((image, index) => {
-        console.log(index)
         return image.fileName == selectedImageFileName
       })
     }

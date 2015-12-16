@@ -8,8 +8,9 @@ var uglifyify = require("uglifyify")
 var browserify = require("browserify")
 var notify = require('osx-notifier')
 var del = require("del")
-var async = require("async")
 var gm = require("gm")
+var async = require("async")
+
 
 
 var babelrc = JSON.parse(fs.readFileSync('./.babelrc', 'utf8'))
@@ -28,14 +29,11 @@ const debug = !(process.env.NODE_ENV == 'production' || process.env.NODE_ENV == 
 
 gulp.task("create-gallery-thumbnails", (done) => {
 
-  const imageMagick = gm.subClass({ imageMagick: true })
-
   const imageFolder = path.join(__dirname, 'resources/images/content/galleri')
   const thumbFolder = path.join(__dirname, 'resources/images/content/galleri/thumbs')
 
   del([thumbFolder + '/**', '!' + thumbFolder])
     .then(() => {
-      
       const imageFileNames = fs.readdirSync(imageFolder)
                                .filter((fileName) => fileName.match(/jpg|gif|png/))
 
@@ -45,15 +43,16 @@ gulp.task("create-gallery-thumbnails", (done) => {
           const imageFullPath = path.join(imageFolder, imageFileName)
           const imageThumbPath = path.join(thumbFolder, imageFileName)
 
-          imageMagick(imageFullPath)
-            .thumb(200, 200, imageThumbPath, 70, callback)
-
+          gm(imageFullPath)
+            .scale(200)
+            .quality(70)
+            .write(imageThumbPath, callback)
         }
       })
 
-      async.parallelLimit(convertTasks, 10, (err, results) => {
+      async.parallelLimit(convertTasks, 4, (err, results) => {
         if(err) {
-          console.log("ERRORs:", err)
+          console.log("ERROR:", err)
           return done(err)
         }
         done() // success

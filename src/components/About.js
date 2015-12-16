@@ -21,7 +21,7 @@ var About = Radium(class extends Component {
   }
 
   imageAnimation() {
-    console.log('About.imageAnimation() UNIMPLEMENTED')
+    
   }
 
   render() {
@@ -30,7 +30,7 @@ var About = Radium(class extends Component {
            style={{
              opacity: 0
            }}>
-           
+
         <div className="row">
           <div className="twelve columns">
             <img src="/images/selvportrett.jpg"
