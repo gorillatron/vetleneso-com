@@ -14,7 +14,7 @@ export const handlers = {
     const imageFiles = await fsp.readdir(path.join(resourcesRoot, galleryRoot))
 
     const images = imageFiles
-      .filter(isImage)
+      .filter((fileName) => fileName.match(/jpg|png|gif/))
       .map((fileName) => {
         return { fileName,
                  imageUrl: path.join(galleryRoot, fileName),
@@ -24,11 +24,6 @@ export const handlers = {
     return images
   }
 
-}
-
-
-function isImage(file) {
-  return file.match(/jpg|png|gif/)
 }
 
 

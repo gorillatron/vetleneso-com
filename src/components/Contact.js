@@ -1,6 +1,7 @@
 
 import React, {Component, PropTypes} from "react"
-import Radium from "radium"
+import Radium, {Style} from "radium"
+
 
 var Contact = Radium(class extends Component {
 
@@ -26,24 +27,54 @@ var Contact = Radium(class extends Component {
              opacity: 0
            }}>
 
-        <div className="row">
+        <Style scopeSelector=".contact"
+               rules={{
+                 table: {
+                   margin: '0px auto',
+                   width: '50%'
+                 },
+                 td: {
+                   borderWidth: '0px'
+                 },
+                 '[class^="flaticon-"]': {
+                   fontSize: '2.1em'
+                 }
+               }}/>
+
+        <div className="row contact" id="contact">
           <div className="twelve columns">
-            <table style={{ margin: '0px auto', width: '70%' }}>
+            <table>
 
-              <tr>
-                <td>Email:</td>
-                <td></td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    <div className="flaticon-speech-bubble20"></div>
+                  </td>
+                  <td>
+                    <a href="mailto:vn.oshaughnessy@gmail.com">vn.oshaughnessy@gmail.com</a>
+                  </td>
+                </tr>
 
-              <tr>
-                <td>Telefon:</td>
-                <td></td>
-              </tr>
+                <tr>
+                  <td>
+                    <div className="flaticon-instagram19"></div>
+                  </td>
+                  <td>
+                    <a target="_blank" href="https://www.instagram.com/vetleneso/">
+                      @vetleneso
+                    </a>
+                  </td>
+                </tr>
 
-              <tr>
-                <td>What:</td>
-                <td></td>
-              </tr>
+                <tr>
+                  <td>
+                    <div className="flaticon-behance13"></div>
+                  </td>
+                  <td>
+                    <a target="_blank" href="behance.net/vneso">behance.net/vneso</a>
+                  </td>
+                </tr>
+              </tbody>
 
             </table>
           </div>
