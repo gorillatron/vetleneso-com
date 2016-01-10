@@ -41,8 +41,7 @@ class FullScreenImage extends Component {
 
 }
 
-
-const Gallery = Radium(class extends Component {
+class Gallery extends Component {
 
   static query = [
     fetchGallery
@@ -125,12 +124,13 @@ const Gallery = Radium(class extends Component {
       </div>
     )
   }
-})
+}
 
 
 function select(state) {
   return {gallery: state.gallery}
 }
 
+const RGallery = Radium(Gallery)
 
-export default connect(select)(Gallery)
+export default connect(select)(RGallery)
