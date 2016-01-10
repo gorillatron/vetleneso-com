@@ -46,7 +46,7 @@ const Gallery = Radium(class extends Component {
 
   static query = [
     fetchGallery
-  ]
+  ];
 
   componentDidMount() {
 
