@@ -1,6 +1,6 @@
 {
   "name": "vetleneso-com",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Vetles home page",
   "main": "index.js",
   "scripts": {
