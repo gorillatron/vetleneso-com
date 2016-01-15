@@ -29,6 +29,8 @@ class FullScreenImage extends Component {
     } else {
       img.addEventListener('load', loaded)
     }
+
+    img.src = this.props.selectedImage.imageUrl
   }
 
   showLoader() {
@@ -95,7 +97,6 @@ class FullScreenImage extends Component {
              }}></div>
 
         <img ref="selected-image-img"
-             src={this.props.selectedImage.imageUrl}
              style={{ display: 'block',
                       margin: '5% auto',
                       opacity: '0.001',

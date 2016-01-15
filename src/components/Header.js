@@ -50,7 +50,7 @@ const styles = {
     },
     link: {
       color: 'rgb(110,110,110)',
-      fontFamily: 'Arial Black',
+      fontFamily: 'Arial Black, arial, Helvetica Neue',
       fontWeight: 'bold',
       textTransform: 'uppercase',
       textDecoration: 'none'
