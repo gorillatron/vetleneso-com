@@ -15,7 +15,8 @@ const styles = {
     position: 'relative',
     padding: '0px 15px',
     zIndex: 0,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    marginBottom: '15px'
   },
   logowrapper: {
     transition: 'height 0.15s ease',

@@ -5,9 +5,58 @@ import splitArray from 'split-array'
 import { Link } from 'react-router'
 import { fetchGallery, setSelectedImage } from '../actions'
 import Radium from 'radium'
+import requestAnimationFrame from 'raf'
 
 
 class FullScreenImage extends Component {
+
+  componentDidMount() {
+    const img = this.refs['selected-image-img']
+
+    this.showLoader()
+
+    const loaded = () => {
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          this.hideLoader()
+          img.style.opacity = 1
+        })
+      }, 2100)
+    }
+
+    if(img.complete) {
+      loaded()
+    } else {
+      img.addEventListener('load', loaded)
+    }
+  }
+
+  showLoader() {
+    const loader = this.refs['loader']
+
+    requestAnimationFrame(() => {
+      loader.style.opacity = 1
+    })
+
+    requestAnimationFrame(() => {
+      new mojs.Tween({
+        repeat:   9999,
+        delay:    0,
+        duration: 737,
+        onUpdate: function (progress) {
+          var easingProgress = mojs.easing.bounce.out(progress)
+          loader.style.transform = 'scale(' + (1 - (.7*easingProgress)) + ')'
+        }
+      }).run()
+    })
+  }
+
+  hideLoader() {
+    const loader = this.refs['loader']
+    requestAnimationFrame(() => {
+      loader.style.opacity = 0.0001
+    })
+  }
 
   render() {
     return (
@@ -18,7 +67,9 @@ class FullScreenImage extends Component {
                     zIndex: 10,
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'rgba(0,0,0, 0.8)' }}>
+                    boxSizing: 'border-box',
+                    backgroundColor: 'rgba(0,0,0, 0.88)' }}>
+
         <Link to="/gallery">
           <div style={{ position: 'absolute',
                         cursor: 'pointer',
@@ -26,14 +77,30 @@ class FullScreenImage extends Component {
                         right: '20px',
                         fontSize: '1.7em',
                         color: 'white'}}>
-            &#10006;
+            ×
           </div>
         </Link>
+
+        <div ref="loader"
+             style={{
+               width: '30px',
+               height: '30px',
+               borderRadius: '16px',
+               backgroundColor: 'rgb(230, 40, 70)',
+               position: 'absolute',
+               opacity: 0.0001,
+               top: '50%',
+               left: '50%',
+               margin: '-15px -15px 0px 0px'
+             }}></div>
+
         <img ref="selected-image-img"
              src={this.props.selectedImage.imageUrl}
              style={{ display: 'block',
                       margin: '5% auto',
+                      opacity: '0.001',
                       maxWidth: '80%',
+                      transition: 'opacity 0.3s ease',
                       height: '80%'}}/>
       </div>
     )
@@ -109,8 +176,7 @@ class Gallery extends Component {
                        style={{
                          width: '100%',
                          opacity: 0.01,
-                         cursor: 'pointer',
-                         transform: 'scale(0.01)'
+                         cursor: 'pointer'
                        }}
                        src={image.thumbUrl} />
                 </Link>

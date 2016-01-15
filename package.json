@@ -49,6 +49,7 @@
     "lodash.throttle": "^3.0.4",
     "mo-js": "^0.147.4",
     "radium": "^0.15.1",
+    "raf": "^3.1.0",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-redux": "^4.0.0",

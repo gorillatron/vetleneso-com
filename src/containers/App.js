@@ -1,8 +1,25 @@
 
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import Radium from 'radium'
+import Radium, { Style } from 'radium'
 import Header from '../components/Header'
+
+
+const styles = {
+
+  body: {
+    fontFamily: 'Helvetica Neue',
+    fontSize: '16px',
+    letterSpacing: '0.2px',
+    lineHeight: '25.6px',
+    color: 'rgb(51,51,51)'
+  },
+
+  img: {
+    borderRadius: '2px'
+  }
+
+}
 
 
 class App extends Component {
@@ -14,12 +31,12 @@ class App extends Component {
                     width: '100%',
                     height: '100%'}}>
 
+        <Style rules={styles} />
 
         <div style={{ position: 'fixed',
                       zIndex: 1,
                       width: '100%',
                       height: '100%',
-                      backgroundImage: 'url("/images/chickentown_lr.jpg")',
                       backgroundSize: 'cover', }}>
         </div>
 
